@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pytest_cache/
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Application storage & job artifacts
+uploads/*
+!uploads/.gitkeep
+processed/*
+!processed/.gitkeep
+temp/*
+!temp/.gitkeep
+zips/*
+!zips/.gitkeep
+storage/*
+!storage/.gitkeep
+
+# Environment variables & system files
+.env
+.DS_Store
+Thumbs.db

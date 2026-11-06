@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF OCR & AUTO BOOKMARK PRO</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- Section A: Header -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="logo-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </div>
+        <div>
+          <h1 class="app-title">PDF OCR &amp; AUTO BOOKMARK PRO</h1>
+          <p class="app-subtitle">Searchable OCR generation and automated legal bookmarking at scale</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <div id="backend-status" class="status-badge status-checking">
+          <span class="status-dot"></span>
+          <span id="backend-status-text">Connecting to server...</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="main-layout">
+
+      <!-- Left Column: Upload Area & Controls -->
+      <section class="action-column">
+
+        <!-- Section B: Upload Area -->
+        <div class="card upload-card">
+          <div class="card-header">
+            <h2>Upload PDFs</h2>
+            <span class="badge badge-info">PDFs Only</span>
+          </div>
+
+          <div id="drop-zone" class="drop-zone">
+            <div class="drop-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+            </div>
+            <p class="drop-primary">Drag &amp; drop PDF files or complete folders here</p>
+            <p class="drop-secondary">Supports multi-file selection and nested folder structures</p>
+
+            <div class="upload-buttons">
+              <label class="btn btn-primary" for="file-input">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
+                Select Files
+              </label>
+              <input type="file" id="file-input" multiple accept=".pdf,application/pdf" hidden>
+
+              <label class="btn btn-secondary" for="folder-input">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                Select Folder
+              </label>
+              <input type="file" id="folder-input" webkitdirectory directory multiple hidden>
+            </div>
+          </div>
+
+          <!-- Staged files feedback & Add More Files button -->
+          <div id="upload-feedback" class="upload-feedback hidden">
+            <div class="feedback-info">
+              <span id="staged-count-text">0 files selected</span>
+              <span id="staged-size-text" class="text-muted">0 MB</span>
+            </div>
+            <button id="btn-upload-staged" class="btn btn-success btn-sm">
+              Upload to Queue
+            </button>
+          </div>
+        </div>
+
+        <!-- Section C: Bookmark Information -->
+        <div class="card bookmark-card">
+          <div class="card-header" id="bookmark-header">
+            <div>
+              <h2>Standard Bookmark Template</h2>
+              <span class="template-note">14 standardized sections applied to every document</span>
+            </div>
+            <button id="toggle-bookmarks" class="btn-text" aria-label="Toggle template preview">
+              <span id="toggle-bookmarks-icon">▲</span>
+            </button>
+          </div>
+
+          <div id="bookmark-list-wrapper" class="bookmark-list-wrapper">
+            <div class="bookmark-grid">
+              <div class="bm-item"><span class="bm-page">Pg 1</span><span class="bm-title">CIF</span></div>
+              <div class="bm-item"><span class="bm-page">Pg 2</span><span class="bm-title">CHECK LIST</span></div>
+              <div class="bm-item"><span class="bm-page">Pg 3</span><span class="bm-title">INDEX</span></div>
+              <div class="bm-item"><span class="bm-page">Pg 4</span><span class="bm-title">MEMO OF PARTIES</span></div>
+              <div class="bm-item"><span class="bm-page">Pg 5</span><span class="bm-title">SYNOPSIS</span></div>
+              <div class="bm-item"><span class="bm-page">Pg 7</span><span class="bm-title">COMPLAINT U/S 25(1)</span></div>
+              <div class="bm-item"><span class="bm-page">Pg 12</span><span class="bm-title">COMPLAINT EVIDENCE</span></div>
+              <div class="bm-item"><span class="bm-page">Pg 16</span><span class="bm-title">LIST OF DOCS &amp; WITNESS</span></div>
+              <div class="bm-item"><span class="bm-page">Pg 17</span><span class="bm-title">SPA</span></div>
+              <div class="bm-item"><span class="bm-page">Pg 18</span><span class="bm-title">AUTO DEBIT FORM</span></div>
+              <div class="bm-item"><span class="bm-page">Pg 19</span><span class="bm-title">AUTO DEBIT RETURN MEMO</span></div>
+              <div class="bm-item"><span class="bm-page">Pg 22</span><span class="bm-title">NOTICE</span></div>
+              <div class="bm-item"><span class="bm-page">Pg 23</span><span class="bm-title">TRACKING REPORT</span></div>
+              <div class="bm-item bm-last"><span class="bm-page">Last</span><span class="bm-title">VAKALATNAMA ★</span></div>
+            </div>
+            <p class="bm-rules-hint">
+              ★ <strong>VAKALATNAMA</strong> is always placed on the final page of each document. Pre-existing bookmarks are safely replaced without altering document contents.
+            </p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Right Column: Dashboard, Progress, and Results -->
+      <section class="dashboard-column">
+
+        <!-- Section D & F: Dashboard & Controls -->
+        <div class="card dashboard-card">
+
+          <!-- Dashboard Toolbar -->
+          <div class="dashboard-toolbar">
+            <div class="toolbar-left">
+              <h2>Processing Queue</h2>
+              <span id="job-id-display" class="badge badge-neutral">No active job</span>
+            </div>
+
+            <div class="toolbar-actions">
+              <!-- Add More Files button -->
+              <label for="file-input-add-more" class="btn btn-outline btn-sm">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Add More Files
+              </label>
+              <input type="file" id="file-input-add-more" multiple accept=".pdf,application/pdf" hidden>
+
+              <!-- Retry Failed -->
+              <button id="btn-retry" class="btn btn-warning btn-sm" disabled>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="23 4 23 10 17 10"></polyline>
+                  <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                </svg>
+                Retry Failed (<span id="failed-count-btn">0</span>)
+              </button>
+
+              <!-- Download ZIP -->
+              <button id="btn-download-zip" class="btn btn-success btn-sm" disabled>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Download All (ZIP)
+              </button>
+
+              <!-- Clear Job -->
+              <button id="btn-clear" class="btn btn-danger-outline btn-sm" disabled>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+                Clear Job
+              </button>
+            </div>
+          </div>
+
+          <!-- Metrics Counters -->
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <span class="metric-label">Total Files</span>
+              <span id="metric-total" class="metric-val">0</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Pending</span>
+              <span id="metric-pending" class="metric-val text-pending">0</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Processing</span>
+              <span id="metric-processing" class="metric-val text-processing">0</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Completed</span>
+              <span id="metric-completed" class="metric-val text-success">0</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Failed</span>
+              <span id="metric-failed" class="metric-val text-danger">0</span>
+            </div>
+          </div>
+
+          <!-- Overall Progress Bar -->
+          <div class="progress-section">
+            <div class="progress-labels">
+              <span id="progress-text">Ready for files</span>
+              <span id="progress-percent">0%</span>
+            </div>
+            <div class="progress-track">
+              <div id="progress-bar" class="progress-fill" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <!-- Files List / Table -->
+          <div class="files-table-container">
+            <table class="files-table">
+              <thead>
+                <tr>
+                  <th>Original Filename</th>
+                  <th>Size</th>
+                  <th>Status &amp; Stage</th>
+                  <th>Processing Time</th>
+                  <th class="text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody id="files-table-body">
+                <tr class="empty-row">
+                  <td colspan="5">
+                    <div class="empty-state">
+                      <p>No documents uploaded yet. Add PDF files to begin processing.</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Confirmation Modal for Clear Job -->
+    <div id="clear-modal" class="modal-backdrop hidden">
+      <div class="modal-box">
+        <h3>Clear Current Job?</h3>
+        <p>This will permanently remove all uploaded PDFs, OCR results, and downloaded ZIP archives for this session.</p>
+        <div class="modal-actions">
+          <button id="modal-cancel-btn" class="btn btn-secondary">Cancel</button>
+          <button id="modal-confirm-btn" class="btn btn-danger">Yes, Clear All</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
